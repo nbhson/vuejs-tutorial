@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <div id="app1">
+    Title: {{title}}
+  </div>
+
+  <div id="app2">
+    Title: {{title}}
+  </div>
+
+  <script>
+    let app_1 = Vue.createApp({
+      data() {
+        return {
+          title: 'In App 1'
+        }
+      },
+      watch: {
+        title() {
+          alert('Title Changed!')
+        }
+      }
+    }).mount('#app1')
+
+    let app_2 = Vue.createApp({
+      data() {
+        return {
+          title: 'In App 2'
+        }
+      },
+      created() {
+        app_1.title = 'Changed by App 2'
+      }
+    }).mount('#app2')
+
+    setTimeout(() => {
+      app_2.title = 'Changed by outside'
+    }, 3000);
+  </script>
+  
+</body>
+</html>

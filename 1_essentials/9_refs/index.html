@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <div id="app">
+    <input ref="input" value="Input value"/>
+
+    <ul>
+      <li v-for="item in list" ref="items">
+        {{ item }}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          list: [1, 2, 3]
+        }
+      },
+      mounted() {
+        console.log(this.$refs.input.value);
+        console.log(this.$refs.items)
+      }
+    }).mount('#app')
+  </script>
+  
+</body>
+</html>

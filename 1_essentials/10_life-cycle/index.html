@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <div id="app">
+    {{title}}
+
+    <!-- Chạy sau beforeMounted nhưng chạy trước mounted  -->
+    <!-- beforeMounted -> computed -> method -> mounted  -->
+    {{myComputed}}
+    {{myMethod()}}
+
+    <!-- watch chạy trước beforeUpdate -->
+    <!-- watch ->beforeUpdate -> updated -->
+    <button ref="button" @click="title = 'Changed with event click'">Update Event</button>
+
+    <!-- 
+      - Giai đoạn khởi tạo:
+        + beforeCreate:  hook chạy mỗi khi khởi tạo một instance. Tại thời điểm này, data, event chưa được thiết lập. 
+        + created: hook được chạy khi data, event đã thiết lập thành công.
+
+      - Giai đoạn gắt kết DOM:
+        + beforeMount:hook sẽ chạy sau khi data, event được thiết lập và trước khi gắn kết vào DOM. Trong hook này chúng ta vẫn chưa - truy cập được phần tử trong DOM.
+        + mounted: giai đoạn này, mounted hook sẽ cho phép chúng ta có thể truy cập vào phẩn tử trong DOM. Tức là khi này, DOM đã được gắn kết. 
+
+      - Giai đoạn cập nhật DOM khi dữ liệu thay đổi:
+        + beforeUpdate: hook : Sau khi đối tượng đã được gắn vào DOM, khi dữ liệu thay đổi, và trước khi render, patch lại và hiển thị ra cho người dùng.
+        + updated hook : Chạy ngay sau khi beforeUpdate. Sử dụng khi bạn cần truy cập DOM sau khi thay đổi thuộc tính. dữ liệu ở beforeUpdate và updated là như nhau
+
+      - Giai đoạn hủy instance:
+        + beforeDestroy hook: Là giai đoạn trước khi instance bị hủy. Đây là nơi để quản lý tài nguyên xóa tài nguyên, dọn dẹp các component.
+        + destroyed hook: Thời điểm này , mọi thành phần đã được hủy bỏ hết. Khi console.log() đối tượng này thì sẽ không nhận được thuộc tính hay dữ liệu gì.
+     -->
+
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          title: 'My Title'
+        }
+      },
+      beforeCreate() {
+        console.log('"beforeCreate": ', this.title); // khi này this.title trả về undefined vì data chưa được nhận (observe)
+      },
+      created() {
+        console.log('"created": ', this.title); // khi này this.title trả về  "My Title" vì quá trình observe data, thiết lập event đã hoàn thành
+      },
+      beforeMount() {
+        console.log('"beforeMount":', this.$refs.button); // undefined vì chưa gắn kết DOM vì vậy chưa thể truy cập đến các thành phần trong DOM
+      },
+      mounted() {
+        console.log('"mounted"', this.$refs.button); // // khi này this.$refs đã gắn kết với DOM, lúc này có thể truy cập được tới các thành phần trong DOM 
+      },
+      beforeUpdate() {
+        console.log('beforeUpdate', this.title);
+      },
+      updated() {
+        console.log('updated', this.title);
+      },
+      beforeDestroy() {
+        this.title = null
+        delete this.title
+        console.log('beforeDestroy');
+      },
+      destroyed() {
+        console.log('destroyed', this); //thời điểm này sẽ không nhận được gì ở console.
+      },
+      methods: {
+        myMethod() {
+          console.log('-> myMethod');
+        }
+      },
+      computed: {
+        myComputed() {
+          console.log('-> myComputed');
+        }
+      },
+      watch: {
+        title() {
+          console.log('-> myWatch');
+        }
+      }
+    }).mount('#app')
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <div id="app">
+
+    <p>
+      <!-- bind an attribute -->
+      <img v-bind:src="imageSrc" width="250"/>
+      <!-- shorthand -->
+      <img :src="imageSrc" width="250"/>
+    </p>
+
+    <p>
+      <!-- dynamic attribute name -->
+      <button v-bind:[key]="dynamicValue">Dynamic Attribute Name</button>
+      <button :[dynamicValue]="value">Dynamic Attribute Name</button>
+    </p>
+
+    <p>
+      <!-- class binding -->
+      <div :class="{ red: isRed }">Class binding 1</div>
+      <div :class="[classA, classB]">Class binding 2</div>
+      <div :class="[classA, { classB: isB, classC: isC }]">Class binding 3</div>
+    </p>
+
+    <p>
+       <!-- style binding -->
+       <div :style="{ fontSize: size + 'px' }">Style binding 1</div>
+       <div :style="[styleObjectA, styleObjectB]">Style binding 1</div>
+    </p>
+
+    <p>
+      <!-- binding an object of attributes -->
+      <div v-bind="{ id: someProp, 'other-attr': otherProp }">v-bind</div>
+    </p>
+
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          imageSrc: 'https://f8.photo.talk.zdn.vn/2040685967677301866/31a0c770f3b13cef65a0.jpg',
+          dynamicValue: 'dynamic-value'
+        }
+      },
+    }).mount('#app')
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <div id="app">
+
+    <!-- 
+      Khi data có sự thay đổi thì app sẽ render lại toàn bộ nội dung (variable, methods, events,...)
+      Riêng với computed, nó chỉ được gọi khi có dính đến data bị thay đổi
+    -->
+
+    <p>
+      <!-- Gọi luôn không cần tác động -->
+      <!-- Chỉ được gọi 1 lần khi chương trình chạy lần đầu -->
+      <button @click="computedFunction">Computed Function</button>
+      {{computedFunction}}
+    </p>
+
+    <p>
+      <!-- Tác động (click) thì mới gọi -->
+      <button @click="methodFunction()">Method Function</button>
+      {{methodFunction()}}
+    </p>
+    
+    <p>
+      <div>
+        A: {{tangA}}
+        B: {{tangB}}
+      </div>
+      <button @click="a++">Tăng A</button>
+      <button @click="b++">Tăng B</button>
+    </p>
+    <!-- Write computed -->
+    {{fullName}}
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          a: 0,
+          b: 0,
+          name: 'Sơn Nguyễn'
+        }
+      },
+      computed: {
+        computedFunction() {
+          console.log('computedFunction');
+        },
+        tangA() {
+          console.log('Tăng A');
+          this.fullName = 'Phương Trinh'
+          return this.a
+        },
+        tangB() {
+          console.log('Tăng B');
+          return this.b
+        },
+        fullName: {
+          get() {
+            return this.name
+          },
+          set(name) {
+            console.log('Setter called'); // tangA
+            this.name = name
+          }
+        }
+      },
+      methods: {
+        methodFunction() {
+          console.log('methodFunction');
+        },
+      }
+    }).mount('#app')
+  </script>
+  
+</body>
+</html>

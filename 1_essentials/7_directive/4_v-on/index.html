@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <div id="app">
+    <!-- method handler -->
+    <button v-on:click="doThis"></button>
+
+    <!-- shorthand -->
+    <button @click="doThis"></button>
+
+    <!-- stop propagation -->
+    <button @click.stop="doThis"></button>
+
+    <!-- prevent default without expression -->
+    <form @submit.prevent></form>
+
+    <!-- chain modifiers -->
+    <button @click.stop.prevent="doThis"></button>
+
+    <!-- key modifier using keyAlias -->
+    <input @keyup.enter="onEnter" />
+
+    <!-- the click event will be triggered at most once -->
+    <button v-on:click.once="doThis"></button>
+
+    <!-- object syntax -->
+    <button v-on="{ mousedown: doThis, mouseup: doThat }">object syntax</button>
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+
+        }
+      },
+      methods: {
+        doThis() {
+          console.log('mousedown');
+        },
+        doThat() {
+          console.log('mouseup');
+        }
+      }
+    }).mount('#app')
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <div id="app">
+    <p>
+      <button @click="awesome = !awesome">Toggle</button>
+      <h1 v-if="awesome">Vue is awesome!</h1>
+      <h1 v-else>Oh no 😢</h1>
+    </p>
+
+    <p>
+      <button @click="currentText = 'A'">Toggle A</button>
+      <button @click="currentText = 'B'">Toggle B</button>
+      <button @click="currentText = 'C'">Toggle C</button>
+
+      <h1 v-if="currentText === 'A'">A</h1>
+      <h1 v-else-if="currentText === 'B'">B</h1>
+      <h1 v-else>C</h1>
+    </p>
+
+    <p>
+      <!-- <template> đóng vai trò như một trình bao bọc ẩn -->
+      <!-- The final rendered result will not include the <template> element. -->
+      <template v-if="true">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+      </template>
+    </p>
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          awesome: false,
+          currentText: 'A'
+        }
+      },
+    }).mount('#app')
+  </script>
+
+</body>
+
+</html>

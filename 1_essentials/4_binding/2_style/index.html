@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <div id="app">
+    <!-- Style Binding -->
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px' }">Sơn Nguyễn</div>
+    <!-- Object Binding -->
+    <div :style="styleObject">Sơn Nguyễn</div>
+    <!-- Multi Binding -->
+    <div :style="[style1, style2]">Sơn Nguyễn</div>
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          activeColor: 'red',
+          fontSize: 30,
+
+          styleObject: {
+            color: 'red',
+            fontSize: '13px'
+          },
+
+          style1: {
+            color: 'white'
+          },
+          style2: {
+            backgroundColor: 'black'
+          }
+        }
+      },
+      methods: {
+        
+      }
+    }).mount('#app')
+  </script>
+  
+</body>
+</html>
