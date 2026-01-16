@@ -24,7 +24,7 @@
     <p>
       <button @mouseover="greet()">Hover me!</button>
       <button @mouseout="say('hello')">Mouseout to Say hello</button>
-      <button @click="warn('Form cannot be submitted yet.', $event)">
+      <button @click="warn($event, 'Form cannot be submitted yet.')">
         Submit
       </button>
     </p>
@@ -67,6 +67,7 @@
           alert(message)
         },
         warn(message, event) {
+          console.log(message, event)
           alert(message)
         },
         stop() {

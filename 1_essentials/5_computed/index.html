@@ -21,7 +21,6 @@
       <!-- Gọi luôn không cần tác động -->
       <!-- Chỉ được gọi 1 lần khi chương trình chạy lần đầu -->
       <button @click="computedFunction">Computed Function</button>
-      {{computedFunction}}
     </p>
 
     <p>
@@ -54,6 +53,7 @@
       computed: {
         computedFunction() {
           console.log('computedFunction');
+          console.log(this.a);
         },
         tangA() {
           console.log('Tăng A');
