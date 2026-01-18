@@ -153,3 +153,8 @@ Chỉ dùng Vuex khi:
 - 🔥 **Vuex ≈ Pinia** về mục tiêu.
 - ❌ **Vuex < Pinia** về DX & tương lai.
 - ✅ **Pinia** = lựa chọn đúng cho Vue 3.
+
+
+test
+
+test 2
