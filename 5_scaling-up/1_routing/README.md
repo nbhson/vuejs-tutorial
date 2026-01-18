@@ -1,24 +1,30 @@
-# 1_basic
+```ts
+<script setup>
+import { ref, computed } from 'vue'
+import Home from './Home.vue'
+import About from './About.vue'
+import NotFound from './NotFound.vue'
 
-## Project setup
-```
-npm install
-```
+const routes = {
+  '/': Home,
+  '/about': About
+}
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+const currentPath = ref(window.location.hash)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.hash
+})
 
-### Lints and fixes files
-```
-npm run lint
-```
+const currentView = computed(() => {
+  return routes[currentPath.value.slice(1) || '/'] || NotFound
+})
+</script>
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<template>
+  <a href="#/">Home</a> |
+  <a href="#/about">About</a> |
+  <a href="#/non-existent-path">Broken Link</a>
+  <component :is="currentView" />
+</template>
+```
